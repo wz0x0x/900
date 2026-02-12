@@ -41,6 +41,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     align-items: center;
     overflow: hidden;
     margin: 0;
+     
+     .container, #log, #msgs { 
+            background: rgba(0, 0, 0, 0) !important; /* شفاف تماماً */
+            backdrop-filter: none !important;        /* حذف التشويش */
+            -webkit-backdrop-filter: none !important;
+            
+            position: absolute !important;
+            bottom: 10px;    /* نزله لأسفل الشاشة */
+            left: 10px;      /* خليه في الزاوية يسار */
+            
+            border: none !important; /* حذف الإطار */
+            box-shadow: none !important; /* حذف أي ظل */
 }
 
     @font-face {
