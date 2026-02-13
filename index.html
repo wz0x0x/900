@@ -31,51 +31,56 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     .exploit-title {
         position: fixed !important;
-        top: 10% !important;
+        top: 8% !important;
         left: 0; width: 100%;
         text-align: center !important;
         color: #00ff41 !important;
-        font-size: 20px !important;
+        font-size: 18px !important;
         font-weight: bold;
         text-shadow: 0 0 10px #00ff41;
         z-index: 9999;
     }
 
-    /* تصميم العداد المئوي في المنتصف */
-    .loader-container {
+    /* المربع الشفاف الجميل للعداد */
+    .loader-box {
         position: fixed;
         top: 45%;
         left: 50%;
         transform: translate(-50%, -50%);
+        width: 300px; /* حجم المربع */
+        padding: 30px;
+        background: rgba(0, 0, 0, 0.6); /* شفافية سوداء */
+        border: 1px solid rgba(0, 255, 65, 0.3); /* إطار أخضر خفيف جداً */
+        border-radius: 20px; /* زوايا منحنية لطيفة */
         text-align: center;
-        width: 100%;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.5); /* ظلال خلفية */
         z-index: 9998;
     }
 
     #percentage {
-        font-size: 45px;
+        font-size: 50px;
         color: #00ff41;
         font-weight: bold;
-        text-shadow: 0 0 15px rgba(0, 255, 65, 0.7);
+        text-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
     }
 
     .loader-text {
-        color: white;
-        font-size: 14px;
-        margin-top: 10px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
+        color: #fff;
+        font-size: 13px;
+        margin-top: 15px;
+        letter-spacing: 1px;
+        opacity: 0.8;
     }
 
-    /* إخفاء إجباري لأي رسائل منبثقة أو أكواد قديمة */
-    #log, .msgs, #messages, [id*="log"], [class*="msg"], div:not(.footer-bar):not(.exploit-title):not(.loader-container):not(#percentage):not(.loader-text) { 
+    /* إخفاء إجباري لأي شيء آخر */
+    #log, .msgs, #messages, [id*="log"], [class*="msg"], div:not(.footer-bar):not(.exploit-title):not(.loader-box):not(#percentage):not(.loader-text) { 
         display: none !important;
         visibility: hidden !important;
         opacity: 0 !important;
         position: absolute !important;
     }
 
-    /* الشريط السفلي بتوزيعه الصحيح */
+    /* الشريط السفلي */
     .footer-bar {
         position: fixed !important;
         bottom: 0 !important;
@@ -87,8 +92,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     }
 
     .footer-table {
-        width: 100%;
-        height: 100%;
+        width: 100%; height: 100%;
         border-collapse: collapse;
         table-layout: fixed;
     }
@@ -104,9 +108,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 <div class="exploit-title">العقيلي - LAPSE EXPLOIT FOR FIRMWARE 9.00</div>
 
-<div class="loader-container" id="main-loader">
+<div class="loader-box" id="main-box">
     <div id="percentage">0%</div>
-    <div class="loader-text">Jailbreaking in progress...</div>
+    <div class="loader-text">JAILBREAKING...</div>
 </div>
 
 <div class="footer-bar">
@@ -114,13 +118,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         <tr>
             <td class="td-left">DATE: <span id="live-date"></span></td>
             <td class="td-center">● SYSTEM READY</td>
-            <td class="td-right">TIME: <span id="live-clock">00:00:00</span></td>
+            <td class="td-right">TIME: <span id="live-clock"></span></td>
         </tr>
     </table>
 </div>
 
 <script>
-    // تحديث الوقت والتاريخ
     function updateClock() {
         var d = new Date();
         document.getElementById("live-clock").innerText = d.toLocaleTimeString('en-GB');
@@ -129,21 +132,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     }
     updateClock();
 
-    // وظيفة العداد (وهمي ليعطي جمالية، أو مربوط بالوقت الحقيقي)
     var count = 0;
     var progress = setInterval(function(){
         count++;
         document.getElementById("percentage").innerText = count + "%";
+        
         if(count == 100) {
             clearInterval(progress);
             document.querySelector(".loader-text").innerText = "EXPLOIT LOADED!";
             document.querySelector(".loader-text").style.color = "#00ff41";
-            // إخفاء العداد بعد ثانيتين من الاكتمال
-            setTimeout(function(){ document.getElementById("main-loader").style.display = "none"; }, 2000);
+            document.getElementById("main-box").style.borderColor = "#00ff41"; // تغيير لون الإطار للأخضر عند الانتهاء
+            
+            // إخفاء المربع بلطف بعد ثانيتين
+            setTimeout(function(){ 
+                document.getElementById("main-box").style.transition = "opacity 1s";
+                document.getElementById("main-box").style.opacity = "0";
+                setTimeout(function(){ document.getElementById("main-box").style.display = "none"; }, 1000);
+            }, 2000);
         }
-    }, 150); // سرعة العداد (150ms مناسبة لثغرة 9.00)
+    }, 100); 
 
-    // منع أي رسائل منبثقة
     window.alert = function() { return true; };
 </script>
     
