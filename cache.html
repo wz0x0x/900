@@ -1,23 +1,39 @@
 <html manifest="psfree_lapse.cache">
 <head>
-    <style>
-        body {
-            background: #000 url('qq.png') no-repeat center center fixed !important;
-            background-size: 100% 100% !important; /* هذا اللي بيصلح شكل الصورة */
-            color: #00ff41; font-family: monospace; text-align: center; margin: 0;
-        }
-        .info { position: relative; top: 45%; font-size: 25px; text-shadow: 0 0 10px #00ff41; }
-    </style>
+<title>العقيلي-Lapse Exploit For 9.00</title>
+<style>
+    body {
+        /* هذا السطر يخلي الصورة كاملة 100% ويمنع التكرار نهائياً */
+        background: #000 url('qq.png') no-repeat center center fixed !important;
+        background-size: 100% 100% !important;
+        color: white;
+        font-size: 28px;
+        text-align: center;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .info {
+        position: relative;
+        top: 39%;
+        /* هنا تعديل العداد: أبيض مضيء، عريض، وعايم */
+        color: #ffffff !important;
+        font-weight: 900 !important;
+        text-shadow: 0 0 15px #ffffff, 0 0 30px #ffffff;
+        text-transform: uppercase;
+    }
+</style>
+<script>
+history.replaceState(null,null,'index.html');var histlength=history.length;history.go(-histlength);
+function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));msgs.innerHTML="Installing Offline Cache ... " + Percent + "%"};
+function DisplayCacheProgress(){
+setTimeout(function(){msgs.innerHTML="Cache Installed Successfully";},2000);
+setTimeout(function(){location.reload();},3000);
+}
+window.applicationCache.addEventListener("progress",DLProgress,false);window.applicationCache.oncached=function(e){DisplayCacheProgress();};window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
+</script>
 </head>
-<body>
-    <div id="msgs" class="info">Installing Offline Cache...</div>
-    <script>
-        window.applicationCache.onprogress = function(e){
-            var Percent = Math.round(e.loaded / e.total * 100);
-            document.getElementById("msgs").innerHTML = "Installing Offline: " + Percent + "%";
-        };
-        window.applicationCache.oncached = function(){ location.replace("index.html"); };
-        window.applicationCache.onupdateready = function(){ location.replace("index.html"); };
-    </script>
+<body style=overflow:hidden>
+<div id=msgs class=info style='-webkit-font-feature-settings:"tnum";font-feature-settings:"tnum";'></div>
 </body>
 </html>
