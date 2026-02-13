@@ -23,141 +23,37 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   <meta charset="UTF-8">
   <title>PSFree - Lapse Exploit for 9.00</title>
   <style>
-    body {
-        /* إعدادات الخلفية والصورة الجديدة */
-        background: #000 url('qq.png?v=6') no-repeat center center fixed !important;
-        background-size: 100% 100% !important;
-        color: white;
-        font-family: Arial, sans-serif;
-        height: 100vh;
-        margin: 0;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+        :root {
+            /* إعدادات الألوان للثيم بالكامل */
+            --global-font-size: 15px;
+            --global-line-height: 1.4;
+            --font-stack: 'Courier New', monospace;
+            --primary-color: #00ff41; /* اللون الأخضر المضيء */
+            --background-color: rgba(0, 0, 0, 0.85);
+        }
 
-    /* تأثير الأبيض المضيء */
-    .neon-text {
-        color: white !important;
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff;
-        font-weight: bold;
-    }
+        body {
+            /* إعدادات الخلفية الموحدة */
+            background: #000 url('qq.png?v=6') no-repeat center center fixed !important;
+            background-size: cover !important; /* تغطية الشاشة بالكامل */
+            color: white;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-    /* مكان الساعة والتاريخ (أعلى اليمين) */
-    #clock-container {
-        position: absolute;
-        top: 20px;
-        right: 30px;
-        text-align: right;
-    }
-
-    /* اسمك تحت (أسفل اليمين) */
-    #my-name {
-        position: absolute;
-        bottom: 20px;
-        right: 30px;
-        font-size: 28px;
-    }
-
-    /* شريط العداد المتطور (أسفل المنتصف) */
-    #progress-wrapper {
-        position: absolute;
-        bottom: 100px;
-        width: 70%;
-        height: 12px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    #progress-bar {
-        width: 0%;
-        height: 100%;
-        background: linear-gradient(90deg, #fff, #b0b0b0);
-        box-shadow: 0 0 15px #fff;
-        border-radius: 20px;
-        transition: width 0.4s ease;
-    }
-/* المربع الرئيسي (Log Container) */
-#log, .msgs, .container#msgs {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    width: 380px;
-    min-height: 150px;
-    max-height: 60vh;
-    padding: 20px;
-    
-    /* خلفية زجاجية باستخدام صورتك qq.png */
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('qq.png') !important;
-    background-size: cover !important;
-    background-position: center;
-    
-    border-radius: 15px;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    
-    /* الوهج الأبيض الناعم */
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 10px rgba(255,255,255,0.05);
-    
-    color: #ffffff !important;
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-    overflow-y: auto;
-    z-index: 9999;
-    transition: all 0.5s ease;
-}
-/* التعديل على الهيدر ليكون في المنتصف */
-.log-status-bar {
-    display: flex;
-    flex-direction: column; /* لترتيب العناصر عمودياً */
-    align-items: center;    /* توسيط العناصر أفقياً */
-    border-bottom: 1px solid rgba(0, 255, 65, 0.3); /* خط سفلي أخضر باهت */
-    margin-bottom: 12px;
-    padding-bottom: 10px;
-}
-
-.operator-info {
-    font-weight: bold;
-    color: #00ff41; 
-    font-size: 16px; /* تكبير الخط قليلاً */
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    /* تأثير التوهج الأخضر */
-    text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41, 0 0 20px rgba(0, 255, 65, 0.5);
-    margin-bottom: 5px;
-    animation: text-pulse 2s infinite alternate; /* حركة نبض التوهج */
-}
-
-@keyframes text-pulse {
-    from { filter: brightness(1); }
-    to { filter: brightness(1.5); }
-}
-
-#live-clock {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 12px;
-    font-weight: normal;
-}
-
-/* تنسيق الرسائل التي تظهر من الثغرة */
-#log div, .msgs p {
-    margin: 5px 0;
-    padding-left: 10px;
-    border-left: 2px solid #00ff41;
-    animation: slideIn 0.3s ease-out forwards;
-}
-
-@keyframes slideIn {
-    from { opacity: 0; transform: translateX(-15px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-/* تخصيص السكرول بار ليصبح شفافاً وجميلاً */
-#log::-webkit-scrollbar { width: 4px; }
-#log::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        /* تنسيق إضافي لمربع السجلات ليظهر فوق الصورة بوضوح */
+        #log, .msgs {
+            background: rgba(0, 0, 0, 0.7) !important;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+        }
 </style>
 
 <div id="log">
