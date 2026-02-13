@@ -21,68 +21,111 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>PSFree - Lapse Exploit for 9.00</title>
-  <style>
-        :root {
-            /* إعدادات الألوان للثيم بالكامل */
-            --global-font-size: 15px;
-            --global-line-height: 1.4;
-            --font-stack: 'Courier New', monospace;
-            --primary-color: #00ff41; /* اللون الأخضر المضيء */
-            --background-color: rgba(0, 0, 0, 0.85);
-        }
-
+<title>PSFree - Lapse Exploit</title>
+    <style>
+        /* إعدادات الجسم الأساسية */
         body {
-            /* إعدادات الخلفية الموحدة */
             background: #000 url('qq.png?v=6') no-repeat center center fixed !important;
-            background-size: cover !important; /* تغطية الشاشة بالكامل */
+            background-size: 100% 100% !important;
             color: white;
-            height: 100vh;
             margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            height: 100vh;
         }
 
-        /* تنسيق إضافي لمربع السجلات ليظهر فوق الصورة بوضوح */
+        /* مربع السجلات (Log) - جعلناه شفافاً وبدون حدود مزعجة */
         #log, .msgs {
-            background: rgba(0, 0, 0, 0.7) !important;
-            border: 1px solid var(--primary-color);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* لتوسيط المربع تماماً */
+            width: 80%;
+            max-height: 60%;
+            background: rgba(0, 0, 0, 0.6) !important; /* شفافية تعمل على كل الأجهزة */
             padding: 20px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
             border-radius: 10px;
+            overflow-y: auto;
+            text-align: left;
         }
-</style>
 
-<div id="log">
-    <div class="log-status-bar">
-        <span class="operator-info">EXPLOIT SYSTEM ACTIVE</span>
-        
-        <div style="display: flex; gap: 15px; align-items: center;">
-            <span id="live-clock">00:00:00</span>
-            <span style="font-size: 10px; color: rgba(255,255,255,0.4);" id="live-date">2026/02/13</span>
-        </div>
+        /* الشريط السفلي (الأسود الشفاف) */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8); /* شريط أسود شفاف */
+            padding: 15px 0;
+            border-top: 1px solid rgba(0, 255, 65, 0.5);
+            z-index: 10000;
+        }
+
+        /* اسم العقيلي - في الوسط وأخضر مضيء */
+        .user-name-footer {
+            text-align: center;
+            color: #00ff41;
+            font-size: 22px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41;
+            display: block;
+            width: 100%;
+        }
+
+        /* التاريخ - أسفل يسار الشريط */
+        #live-date {
+            position: absolute;
+            left: 20px;
+            bottom: 15px;
+            color: #fff;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* الوقت - مكانه في الأعلى (أو كما كان) */
+        #live-clock {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.5);
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
+    </style>
+
+<div id="live-clock">00:00:00</div>
+
+    <div id="log">
+        <div>انتظر تحميل الثغرة...</div>
     </div>
-    
+
+    <div class="bottom-bar">
+        <div id="live-date">2026/02/13</div>
+        <span class="user-name-footer">العقيلي</span>
     </div>
-<script>
-function updateSystemTime() {
-    const now = new Date();
-    // الوقت
-    const timeStr = now.getHours().toString().padStart(2, '0') + ":" + 
-                    now.getMinutes().toString().padStart(2, '0') + ":" + 
-                    now.getSeconds().toString().padStart(2, '0');
-    document.getElementById('live-clock').innerText = timeStr;
-    
-    // التاريخ
-    const dateStr = now.getFullYear() + "/" + (now.getMonth()+1).toString().padStart(2, '0') + "/" + now.getDate().toString().padStart(2, '0');
-    document.getElementById('live-date').innerText = dateStr;
-}
-setInterval(updateSystemTime, 1000);
-updateSystemTime();
-</script>
+
+    <script>
+        function updateTime() {
+            var now = new Date();
+            var h = String(now.getHours()).padStart(2, '0');
+            var m = String(now.getMinutes()).padStart(2, '0');
+            var s = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('live-clock').innerText = h + ":" + m + ":" + s;
+
+            var y = now.getFullYear();
+            var mon = String(now.getMonth() + 1).padStart(2, '0');
+            var d = String(now.getDate()).padStart(2, '0');
+            document.getElementById('live-date').innerText = y + "/" + mon + "/" + d;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
 </body>
   <div id="clock-container" class="neon-text">
     <div id="clock" style="font-size: 35px;">00:00:00</div>
