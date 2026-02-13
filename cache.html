@@ -1,36 +1,48 @@
 <html manifest="psfree_lapse.cache">
 <head>
-<title>العقيلي-Lapse Exploit For 9.00</title>
-<style>
-    body {
-        /* هذا السطر يخلي الصورة كاملة 100% ويمنع التكرار نهائياً */
-        background: #000 url('qq.png') no-repeat center center fixed !important;
-        background-size: 100% 100% !important;
-        color: white;
-        font-size: 28px;
-        text-align: center;
-        margin: 0;
-        overflow: hidden;
-    }
+    <title>العقيلي-Lapse Exploit For 9.00</title>
+    <style>
+        body {
+            /* حل مشكلة الصورة المتداخلة: جعلها كاملة قطعة واحدة */
+            background: #000 url('qq.png') no-repeat center center fixed !important;
+            background-size: 100% 100% !important; 
+            color: white;
+            font-size: 28px;
+            text-align: center;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
-    .info {
-        position: relative;
-        top: 39%;
-        /* هنا تعديل العداد: أبيض مضيء، عريض، وعايم */
-        color: #ffffff !important;
-        font-weight: 900 !important;
-        text-shadow: 0 0 15px #ffffff, 0 0 30px #ffffff;
-        text-transform: uppercase;
-    }
-</style>
-<script>
-history.replaceState(null,null,'index.html');var histlength=history.length;history.go(-histlength);
-function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));msgs.innerHTML="Installing Offline Cache ... " + Percent + "%"};
-function DisplayCacheProgress(){
-setTimeout(function(){msgs.innerHTML="Cache Installed Successfully";},2000);
-setTimeout(function(){location.reload();},3000);
-}
-window.applicationCache.addEventListener("progress",DLProgress,false);window.applicationCache.oncached=function(e){DisplayCacheProgress();};window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
+        .info {
+            /* العداد الأبيض المضيء العريض والعايم */
+            color: #ffffff !important;
+            font-weight: 900 !important;
+            text-shadow: 0 0 15px #ffffff, 0 0 30px #ffffff;
+            text-transform: uppercase;
+        }
+    </style>
+    <script>
+        history.replaceState(null,null,'index.html');
+        var histlength=history.length;
+        history.go(-histlength);
+
+        function DLProgress(e){
+            var Percent = Math.round(e.loaded / e.total * 100);
+            document.getElementById("msgs").innerHTML = "Installing Offline Cache ... " + Percent + "%";
+        }
+
+        function DisplayCacheProgress(){
+            document.getElementById("msgs").innerHTML = "Cache Installed Successfully";
+            setTimeout(function(){ location.replace("index.html"); }, 2000);
+        }
+
+        window.applicationCache.addEventListener("progress", DLProgress, false);
+        window.applicationCache.oncached = function(e){ DisplayCacheProgress(); };
+        window.applicationCache.onupdateready = function(e){ DisplayCacheProgress(); };
 </script>
 </head>
 <body style=overflow:hidden>
