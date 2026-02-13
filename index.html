@@ -34,19 +34,16 @@ if(window.applicationCache.status==0){location.replace('cache.html');}
             font-family: monospace;
         }
 
-        /* إخفاء إجباري لأي كود أسود أو أخضر يخرج من السكربت */
-        #log, .msgs, #messages, [id*="log"], [class*="msg"], div[style*="position: absolute"] { 
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-        }
-
-        .exploit-title {
-            position: fixed !important; top: 8%; left: 0; width: 100%;
-            text-align: center; color: #00ff41; font-size: 18px;
-            font-weight: bold; text-shadow: 0 0 10px #00ff41; z-index: 9999;
-        }
-
+      /* الكود الجديد لإخفاء السواد تماماً */
+#log, #msgs, #messages, pre, .debug, .console, [id*="log"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    pointer-events: none !important;
+}
         /* المربع الشفاف للعداد */
         .loader-box {
             position: fixed; top: 45%; left: 50%;
@@ -67,6 +64,7 @@ if(window.applicationCache.status==0){location.replace('cache.html');}
 
         .footer-table { width: 100%; height: 100%; table-layout: fixed; color: white; }
         .td-center { text-align: center; color: #00ff41; font-weight: bold; text-shadow: 0 0 8px #00ff41; }
+        
     </style>
 </head>
 <body>
