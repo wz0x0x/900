@@ -22,77 +22,69 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 <head>
 <meta charset="UTF-8">
 <style>
-    /* التنسيق الأساسي للمتصفحات القديمة */
     body {
-        background-color: #000 !important;
-        background-image: url('qq.png') !important;
+        background: #000 url('qq.png') no-repeat center center fixed !important;
         background-size: 100% 100% !important;
-        background-attachment: fixed;
         color: white;
         margin: 0;
         padding: 0;
         font-family: sans-serif;
+        overflow: hidden;
     }
 
-    /* مربع التنبيهات في المنتصف */
+    /* تصغير المربع وجعله شفافاً جداً */
     #log {
         position: fixed;
-        top: 20%;
-        left: 10%;
-        width: 80%;
-        height: 50%;
-        background: rgba(0, 0, 0, 0.7); /* شفافية بسيطة */
-        border: 2px solid #00ff41;
-        border-radius: 15px;
-        padding: 15px;
+        top: 25%;
+        left: 25%;
+        width: 50%; /* تصغير العرض */
+        height: 30%; /* تصغير الارتفاع */
+        background: rgba(0, 0, 0, 0.4); /* شفافية عالية */
+        border: 1px solid rgba(0, 255, 65, 0.5); /* حد أخضر خفيف */
+        border-radius: 10px;
+        padding: 10px;
         overflow-y: auto;
-        font-size: 18px;
+        font-size: 14px; /* خط أصغر للأوامر */
         z-index: 1;
+        box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
     }
 
-    /* الشريط السفلي الأسود */
     .footer-bar {
         position: fixed;
         bottom: 0;
         width: 100%;
-        height: 60px;
-        background: rgba(0, 0, 0, 0.9);
-        border-top: 2px solid #00ff41;
+        height: 50px;
+        background: rgba(0, 0, 0, 0.7); /* شريط شفاف */
+        border-top: 1px solid #00ff41;
         z-index: 10;
     }
 
-    /* اسم العقيلي - في المنتصف */
     .my-name {
         position: absolute;
         width: 100%;
         text-align: center;
-        bottom: 15px;
+        bottom: 12px;
         color: #00ff41;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: bold;
-        text-shadow: 0 0 15px #00ff41;
+        text-shadow: 0 0 10px #00ff41;
     }
 
-    /* التاريخ - يسار */
     #live-date {
         position: absolute;
         left: 20px;
-        bottom: 20px;
+        bottom: 15px;
         color: #fff;
-        font-size: 16px;
+        font-size: 14px;
     }
 
-    /* الوقت - مكانه الأصلي يمين فوق */
     #live-clock {
         position: fixed;
-        top: 20px;
+        top: 15px;
         right: 20px;
         color: #00ff41;
-        font-size: 25px;
+        font-size: 20px;
         font-weight: bold;
-        background: rgba(0,0,0,0.6);
-        padding: 10px;
-        border-radius: 8px;
     }
 </style>
 </head>
@@ -101,35 +93,24 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 <div id="live-clock">00:00:00</div>
 
 <div id="log">
-    جاري تهيئة النظام...
-</div>
+    </div>
 
 <div class="footer-bar">
-    <div id="live-date">2026/02/13</div>
+    <div id="live-date"></div>
     <div class="my-name">العقيلي</div>
 </div>
 
 <script>
-    // وظيفة الوقت والتاريخ
-    function showTime(){
-        var date = new Date();
-        var h = date.getHours(); 
-        var m = date.getMinutes(); 
-        var s = date.getSeconds(); 
-        h = (h < 10) ? "0" + h : h;
-        m = (m < 10) ? "0" + m : m;
-        s = (s < 10) ? "0" + s : s;
-        document.getElementById("live-clock").innerText = h + ":" + m + ":" + s;
-        
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        document.getElementById("live-date").innerText = year + "/" + month + "/" + day;
-        
-        setTimeout(showTime, 1000);
+    // تحديث الوقت والتاريخ
+    function updateInfo() {
+        var d = new Date();
+        document.getElementById("live-clock").innerText = d.toLocaleTimeString();
+        document.getElementById("live-date").innerText = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+        setTimeout(updateInfo, 1000);
     }
-    showTime();
+    updateInfo();
 </script>
 
 </body>
+</html>
 </html>
