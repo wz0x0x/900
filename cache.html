@@ -3,26 +3,21 @@
     <style>
         body {
             background: #000 url('qq.png') no-repeat center center fixed !important;
-            background-size: 100% 100% !important; /* هذا يحل مشكلة الصورة المكررة */
-            color: white; font-family: monospace; text-align: center; margin: 0;
+            background-size: 100% 100% !important; /* هذا اللي بيصلح شكل الصورة */
+            color: #00ff41; font-family: monospace; text-align: center; margin: 0;
         }
-        .info { position: relative; top: 45%; font-size: 25px; color: #00ff41; text-shadow: 0 0 10px #00ff41; }
+        .info { position: relative; top: 45%; font-size: 25px; text-shadow: 0 0 10px #00ff41; }
     </style>
-    <script>
-        function DLProgress(e){
-            var Percent = Math.round(e.loaded / e.total * 100);
-            document.getElementById("msgs").innerHTML = "Installing Offline Cache: " + Percent + "%";
-        }
-        function DisplayCacheProgress(){
-            setTimeout(function(){document.getElementById("msgs").innerHTML="Cache Installed Successfully";},2000);
-            setTimeout(function(){location.replace("index.html");},3000);
-        }
-        window.applicationCache.addEventListener("progress", DLProgress, false);
-        window.applicationCache.oncached = function(e){DisplayCacheProgress();};
-        window.applicationCache.onupdateready = function(e){DisplayCacheProgress();};
-    </script>
 </head>
 <body>
-    <div id="msgs" class="info">Initializing Offline Storage...</div>
+    <div id="msgs" class="info">Installing Offline Cache...</div>
+    <script>
+        window.applicationCache.onprogress = function(e){
+            var Percent = Math.round(e.loaded / e.total * 100);
+            document.getElementById("msgs").innerHTML = "Installing Offline: " + Percent + "%";
+        };
+        window.applicationCache.oncached = function(){ location.replace("index.html"); };
+        window.applicationCache.onupdateready = function(){ location.replace("index.html"); };
+    </script>
 </body>
 </html>
